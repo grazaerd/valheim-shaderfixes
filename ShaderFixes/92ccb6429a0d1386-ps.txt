@@ -1,0 +1,360 @@
+// // fs particle system
+// // mistland smoke
+// Texture2D<float4> t1 : register(t1);
+
+// Texture2D<float4> t0 : register(t0);
+
+// SamplerState s1_s : register(s1);
+
+// SamplerState s0_s : register(s0);
+
+// cbuffer cb2 : register(b2)
+// {
+  // float4 cb2[1];
+// }
+
+// cbuffer cb1 : register(b1)
+// {
+  // float4 cb1[39];
+// }
+
+// cbuffer cb0 : register(b0)
+// {
+  // float4 cb0[20];
+// }
+
+
+
+
+// // 3Dmigoto declarations
+// #define cmp -
+
+
+// void main(
+  // float4 v0 : SV_POSITION0,
+  // float2 v1 : TEXCOORD0,
+  // float w1 : TEXCOORD9,
+  // float4 v2 : COLOR0,
+  // float4 v3 : TEXCOORD1,
+  // float4 v4 : TEXCOORD2,
+  // float4 v5 : TEXCOORD3,
+  // float4 v6 : TEXCOORD4,
+  // float4 v7 : TEXCOORD10,
+  // float4 v8 : TEXCOORD11,
+  // float4 v9 : TEXCOORD12,
+  // float4 v10 : TEXCOORD13,
+  // float4 v11 : TEXCOORD5,
+  // float4 v12 : TEXCOORD6,
+  // float4 v13 : TEXCOORD7,
+  // float4 v14 : TEXCOORD8,
+  // out float4 o0 : SV_Target0)
+// {
+  // float4 r0,r1,r2,r3;
+  // uint4 bitmask, uiDest;
+  // float4 fDest;
+
+  // r0.xyzw = t0.Sample(s0_s, v1.xy).xyzw;
+  // r0.xy = r0.xy * float2(2,2) + float2(-1,-1);
+  // r1.x = 0;//dot(r0.xy, r0.xy);
+  // r1.x = min(1, r1.x);
+  // r1.x = 1 + -r1.x;
+  // r1.z = sqrt(r1.x);
+  // r0.w = v2.w * r0.w;
+  // r2.xyz = t1.Sample(s1_s, v1.xy).xyz;
+  // r2.xyz = v2.xyz * r2.xyz;
+  // r3.xy = ddx_coarse(v1.xy);
+  // r1.w = dot(r3.xy, r3.xy);
+  // r1.w = rsqrt(r1.w);
+  // r3.xy = r3.xy * r1.ww;
+  // r1.x = 0;//dot(r3.xy, r0.xy);
+  // r0.y = r3.x * r0.y;
+  // r1.y = -r3.y * r0.x + r0.y;
+  // // r0.x = cmp(cb1[15].w == 0.000000);
+  // // if (r0.x != 0) {
+    // // r0.x = dot(v3.xyz, r1.xyz);
+    // // r0.y = 1 + -cb0[2].w;
+    // // r0.x = saturate(r0.x * r0.y + cb0[2].w);
+    // // r0.y = dot(v3.xyz, -r1.xyz);
+    // // r0.y = cb0[3].x * r0.y;
+    // // r0.z = saturate(-r0.z * cb0[3].y + 1);
+    // // r0.y = saturate(r0.y * r0.z);
+    // // r0.x = r0.x + r0.y;
+    // // r0.x = v3.w * r0.x;
+    // // r3.xyz = cb1[7].xyz * r2.xyz;
+    // // r0.xyz = r3.xyz * r0.xxx;
+  // // } else {
+    // r1.w = dot(v3.xyz, r1.xyz);
+    // r2.w = 0.95 + -cb0[2].w; //r2.w = 1 + -cb0[2].w;
+    // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+    // // r2.w = dot(v3.xyz, -r1.xyz);
+    // // r2.w = saturate(cb0[3].x * r2.w);
+    // // r1.w = r2.w + r1.w;
+    // // r1.w = v3.w * r1.w;
+    // // r2.w = cmp(cb1[23].x != -1.000000);
+    // // r3.x = dot(v3.xyz, cb1[31].xyz);
+    // // r3.x = max(0, r3.x);
+    // // r3.x = saturate(-cb1[23].x + r3.x);
+    // // r3.x = cb1[23].y * r3.x;
+    // // r2.w = r2.w ? r3.x : 1;
+    // // r1.w = r2.w * r1.w;
+    // r3.xyz = cb1[7].xyz * r2.xyz;
+    // r0.xyz = r3.xyz * r1.www;
+  // // }
+  // // r1.w = dot(v4.xyz, r1.xyz);
+  // // r2.w = 1 + -cb0[2].w;
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r3.x = dot(v4.xyz, -r1.xyz);
+  // // r3.x = saturate(cb0[3].x * r3.x);
+  // // r1.w = r3.x + r1.w;
+  // // r1.w = v4.w * r1.w;
+  // // r3.x = cmp(cb1[24].x != -1.000000);
+  // // r3.y = dot(v4.xyz, cb1[32].xyz);
+  // // r3.y = max(0, r3.y);
+  // // r3.y = saturate(-cb1[24].x + r3.y);
+  // // r3.y = cb1[24].y * r3.y;
+  // // r3.x = r3.x ? r3.y : 1;
+  // // r1.w = r3.x * r1.w;
+  // // r3.xyz = cb1[8].xyz * r2.xyz;
+  // // r0.xyz = r3.xyz * r1.www + r0.xyz;
+  // // r1.w = dot(v5.xyz, r1.xyz);
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r3.x = dot(v5.xyz, -r1.xyz);
+  // // r3.x = saturate(cb0[3].x * r3.x);
+  // // r1.w = r3.x + r1.w;
+  // // r1.w = v5.w * r1.w;
+  // // r3.x = cmp(cb1[25].x != -1.000000);
+  // // r3.y = dot(v5.xyz, cb1[33].xyz);
+  // // r3.y = max(0, r3.y);
+  // // r3.y = saturate(-cb1[25].x + r3.y);
+  // // r3.y = cb1[25].y * r3.y;
+  // // r3.x = r3.x ? r3.y : 1;
+  // // r1.w = r3.x * r1.w;
+  // // r3.xyz = cb1[9].xyz * r2.xyz;
+  // // r0.xyz = r3.xyz * r1.www + r0.xyz;
+  // // r1.w = dot(v6.xyz, r1.xyz);
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r3.x = dot(v6.xyz, -r1.xyz);
+  // // r3.x = saturate(cb0[3].x * r3.x);
+  // // r1.w = r3.x + r1.w;
+  // // r1.w = v6.w * r1.w;
+  // // r3.x = cmp(cb1[26].x != -1.000000);
+  // // r3.y = dot(v6.xyz, cb1[34].xyz);
+  // // r3.y = max(0, r3.y);
+  // // r3.y = saturate(-cb1[26].x + r3.y);
+  // // r3.y = cb1[26].y * r3.y;
+  // // r3.x = r3.x ? r3.y : 1;
+  // // r1.w = r3.x * r1.w;
+  // // r3.xyz = cb1[10].xyz * r2.xyz;
+  // // r0.xyz = r3.xyz * r1.www + r0.xyz;
+  // // r1.w = dot(v7.xyz, r1.xyz);
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r3.x = dot(v7.xyz, -r1.xyz);
+  // // r3.x = saturate(cb0[3].x * r3.x);
+  // // r1.w = r3.x + r1.w;
+  // // r1.w = v7.w * r1.w;
+  // // r3.x = cmp(cb1[27].x != -1.000000);
+  // // r3.y = dot(v7.xyz, cb1[35].xyz);
+  // // r3.y = max(0, r3.y);
+  // // r3.y = saturate(-cb1[27].x + r3.y);
+  // // r3.y = cb1[27].y * r3.y;
+  // // r3.x = r3.x ? r3.y : 1;
+  // // r1.w = r3.x * r1.w;
+  // // r3.xyz = cb1[11].xyz * r2.xyz;
+  // // r0.xyz = r3.xyz * r1.www + r0.xyz;
+  // // r1.w = dot(v8.xyz, r1.xyz);
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r3.x = dot(v8.xyz, -r1.xyz);
+  // // r3.x = saturate(cb0[3].x * r3.x);
+  // // r1.w = r3.x + r1.w;
+  // // r1.w = v8.w * r1.w;
+  // // r3.x = cmp(cb1[28].x != -1.000000);
+  // // r3.y = dot(v8.xyz, cb1[36].xyz);
+  // // r3.y = max(0, r3.y);
+  // // r3.y = saturate(-cb1[28].x + r3.y);
+  // // r3.y = cb1[28].y * r3.y;
+  // // r3.x = r3.x ? r3.y : 1;
+  // // r1.w = r3.x * r1.w;
+  // // r3.xyz = cb1[12].xyz * r2.xyz;
+  // // r0.xyz = r3.xyz * r1.www + r0.xyz;
+  // // r1.w = dot(v9.xyz, r1.xyz);
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r3.x = dot(v9.xyz, -r1.xyz);
+  // // r3.x = saturate(cb0[3].x * r3.x);
+  // // r1.w = r3.x + r1.w;
+  // // r1.w = v9.w * r1.w;
+  // // r3.x = cmp(cb1[29].x != -1.000000);
+  // // r3.y = dot(v9.xyz, cb1[37].xyz);
+  // // r3.y = max(0, r3.y);
+  // // r3.y = saturate(-cb1[29].x + r3.y);
+  // // r3.y = cb1[29].y * r3.y;
+  // // r3.x = r3.x ? r3.y : 1;
+  // // r1.w = r3.x * r1.w;
+  // // r3.xyz = cb1[13].xyz * r2.xyz;
+  // // r0.xyz = r3.xyz * r1.www + r0.xyz;
+  // // r1.w = dot(v10.xyz, r1.xyz);
+  // // r1.w = saturate(r1.w * r2.w + cb0[2].w);
+  // // r1.x = dot(v10.xyz, -r1.xyz);
+  // // r1.x = saturate(cb0[3].x * r1.x);
+  // // r1.x = r1.w + r1.x;
+  // // r1.x = v10.w * r1.x;
+  // // r1.y = cmp(cb1[30].x != -1.000000);
+  // // r1.z = dot(v10.xyz, cb1[38].xyz);
+  // // r1.z = max(0, r1.z);
+  // // r1.z = saturate(-cb1[30].x + r1.z);
+  // // r1.z = cb1[30].y * r1.z;
+  // // r1.y = r1.y ? r1.z : 1;
+  // // r1.x = r1.x * r1.y;
+  // // r1.yzw = cb1[14].xyz * r2.xyz;
+  // // r0.xyz = r1.yzw * r1.xxx + r0.xyz;
+  // r0.xyz = r2.xyz * v11.xyz + r0.xyz;
+  // r1.x = dot(-v13.xyz, -v13.xyz);
+  // // r1.x = rsqrt(r1.x);
+  // r1.xyz = -v13.xyz * r1.xxx;
+  // r1.x = saturate(dot(r1.xyz, cb0[18].xyz));
+  // r1.yzw = log2(cb0[17].xyz);
+  // r1.yzw = float3(2.20000005,2.20000005,2.20000005) * r1.yzw;
+  // r1.yzw = exp2(r1.yzw);
+  // r1.yzw = -cb2[0].xyz + r1.yzw;
+  // r1.xyz = r1.xxx * r1.yzw + cb2[0].xyz;
+  // r1.w = cb0[18].w * -v14.z;
+  // r1.w = exp2(r1.w);
+  // // r1.w = min(1, r1.w);
+  // r1.w = 1 + -r1.w;
+  // // r2.x = cb0[19].y + -v14.z;
+  // // r2.y = cb0[19].y + -cb0[19].x;
+  // // r2.x = saturate(r2.x / r2.y);
+  // // r2.x = 1 + -r2.x;
+  // // r1.w = max(r2.x, r1.w);
+  // r1.xyz = r1.xyz + -r0.xyz;
+  // o0.xyz = r1.www * r1.xyz + r0.xyz;
+  // r0.x = -30 + v12.y;
+  // r0.x = saturate(0.5 * r0.x);
+  // o0.w = r0.w * r0.x;
+  // return;
+// }
+
+//
+// Generated by Microsoft (R) HLSL Shader Compiler 10.0.10011.16384
+//
+//
+// Buffer Definitions: 
+//
+// cbuffer cb2
+// {
+//
+//   float4 cb2;                        // Offset:    0 Size:    16
+//
+// }
+//
+// cbuffer cb1
+// {
+//
+//   float4 cb1[39];                    // Offset:    0 Size:   624
+//
+// }
+//
+// cbuffer cb0
+// {
+//
+//   float4 cb0[20];                    // Offset:    0 Size:   320
+//
+// }
+//
+//
+// Resource Bindings:
+//
+// Name                                 Type  Format         Dim      HLSL Bind  Count
+// ------------------------------ ---------- ------- ----------- -------------- ------
+// s0_s                              sampler      NA          NA             s0      1 
+// s1_s                              sampler      NA          NA             s1      1 
+// t0                                texture  float4          2d             t0      1 
+// t1                                texture  float4          2d             t1      1 
+// cb0                               cbuffer      NA          NA            cb0      1 
+// cb1                               cbuffer      NA          NA            cb1      1 
+// cb2                               cbuffer      NA          NA            cb2      1 
+//
+//
+//
+// Input signature:
+//
+// Name                 Index   Mask Register SysValue  Format   Used
+// -------------------- ----- ------ -------- -------- ------- ------
+// SV_POSITION              0   xyzw        0      POS   float       
+// TEXCOORD                 0   xy          1     NONE   float   xy  
+// TEXCOORD                 9     z         1     NONE   float       
+// COLOR                    0   xyzw        2     NONE   float   xyzw
+// TEXCOORD                 1   xyzw        3     NONE   float    yz 
+// TEXCOORD                 2   xyzw        4     NONE   float       
+// TEXCOORD                 3   xyzw        5     NONE   float       
+// TEXCOORD                 4   xyzw        6     NONE   float       
+// TEXCOORD                10   xyzw        7     NONE   float       
+// TEXCOORD                11   xyzw        8     NONE   float       
+// TEXCOORD                12   xyzw        9     NONE   float       
+// TEXCOORD                13   xyzw       10     NONE   float       
+// TEXCOORD                 5   xyzw       11     NONE   float   xyz 
+// TEXCOORD                 6   xyzw       12     NONE   float    y  
+// TEXCOORD                 7   xyzw       13     NONE   float   xyz 
+// TEXCOORD                 8   xyzw       14     NONE   float     z 
+//
+//
+// Output signature:
+//
+// Name                 Index   Mask Register SysValue  Format   Used
+// -------------------- ----- ------ -------- -------- ------- ------
+// SV_Target                0   xyzw        0   TARGET   float   xyzw
+//
+ps_5_0
+dcl_globalFlags refactoringAllowed
+dcl_constantbuffer CB2[1], immediateIndexed
+dcl_constantbuffer CB1[8], immediateIndexed
+dcl_constantbuffer CB0[19], immediateIndexed
+dcl_sampler s0, mode_default
+dcl_sampler s1, mode_default
+dcl_resource_texture2d (float,float,float,float) t0
+dcl_resource_texture2d (float,float,float,float) t1
+dcl_input_ps linear v1.xy
+dcl_input_ps linear v2.xyzw
+dcl_input_ps linear v3.yz
+dcl_input_ps linear v11.xyz
+dcl_input_ps linear v12.y
+dcl_input_ps linear v13.xyz
+dcl_input_ps linear v14.z
+dcl_output o0.xyzw
+dcl_temps 3
+log r0.xyz, cb0[17].xyzx
+mul r0.xyz, r0.xyzx, l(2.200000, 2.200000, 2.200000, 0.000000)
+exp r0.xyz, r0.xyzx
+add r0.xyz, r0.xyzx, -cb2[0].xyzx
+dp3 r0.w, -v13.xyzx, -v13.xyzx
+mul r1.xyz, r0.wwww, -v13.xyzx
+dp3_sat r0.w, r1.xyzx, cb0[18].xyzx
+mad r0.xyz, r0.wwww, r0.xyzx, cb2[0].xyzx
+deriv_rtx_coarse r1.xy, v1.xyxx
+dp2 r0.w, r1.xyxx, r1.xyxx
+rsq r0.w, r0.w
+mul r1.xy, r0.wwww, r1.xyxx
+sample_indexable(texture2d)(float,float,float,float) r2.xyz, v1.xyxx, t0.xywz, s0
+mad r1.zw, r2.xxxy, l(0.000000, 0.000000, 2.000000, 2.000000), l(0.000000, 0.000000, -1.000000, -1.000000)
+mul r0.w, r2.z, v2.w
+mul r1.x, r1.w, r1.x
+mad r1.x, -r1.y, r1.z, r1.x
+mov r1.y, l(1.000000)
+dp2 r1.x, v3.yzyy, r1.xyxx
+add r1.y, -cb0[2].w, l(0.950000)
+mad_sat r1.x, r1.x, r1.y, cb0[2].w
+sample_indexable(texture2d)(float,float,float,float) r1.yzw, v1.xyxx, t1.wxyz, s1
+mul r1.yzw, r1.yyzw, v2.xxyz
+mul r2.xyz, r1.yzwy, cb1[7].xyzx
+mul r2.xyz, r1.xxxx, r2.xyzx
+mad r1.xyz, r1.yzwy, v11.xyzx, r2.xyzx
+add r0.xyz, r0.xyzx, -r1.xyzx
+mul r1.w, -v14.z, cb0[18].w
+exp r1.w, r1.w
+add r1.w, -r1.w, l(1.000000)
+mad o0.xyz, r1.wwww, r0.xyzx, r1.xyzx
+add r0.x, v12.y, l(-30.000000)
+mul_sat r0.x, r0.x, l(0.500000)
+mul o0.w, r0.x, r0.w
+ret 
+// Approximately 35 instruction slots used
+
