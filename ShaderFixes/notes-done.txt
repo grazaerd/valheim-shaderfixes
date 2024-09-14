@@ -14,6 +14,13 @@ microseconds changes: 6000-7000 -> 3000-4000
 fs grass
 fa6708a6db85b704-ps
 microseconds changes: 800 -> 600
+==============================
+fs lux lit particles/ bumped (need to check changes ingame)
+f541db339b6cd573-ps
+microseconds changes: 600-700 -> 150-190
+==============================
+
+
 
 ## Todo
 fs soft particle system
