@@ -1,0 +1,460 @@
+// // Custom/Vegetation // FS Vegetation
+// Texture3D<float4> t6 : register(t6);
+
+// Texture2D<float4> t5 : register(t5);
+
+// Texture2D<float4> t4 : register(t4);
+
+// Texture2D<float4> t3 : register(t3);
+
+// Texture2D<float4> t2 : register(t2);
+
+// Texture2D<float4> t1 : register(t1);
+
+// Texture2D<float4> t0 : register(t0);
+
+// SamplerState s6_s : register(s6);
+
+// SamplerState s5_s : register(s5);
+
+// SamplerState s4_s : register(s4);
+
+// SamplerState s3_s : register(s3);
+
+// SamplerState s2_s : register(s2);
+
+// SamplerState s1_s : register(s1);
+
+// SamplerState s0_s : register(s0);
+
+// cbuffer cb3 : register(b3)
+// {
+  // float4 cb3[14];
+// }
+
+// cbuffer cb2 : register(b2)
+// {
+  // float4 cb2[1];
+// }
+
+// cbuffer cb1 : register(b1)
+// {
+  // float4 cb1[7];
+// }
+
+// cbuffer cb0 : register(b0)
+// {
+  // float4 cb0[23];
+// }
+
+
+
+
+// // 3Dmigoto declarations
+// #define cmp -
+
+
+// void main(
+  // float4 v0 : SV_POSITION0,
+  // float4 v1 : TEXCOORD0,
+  // float4 v2 : TEXCOORD1,
+  // float4 v3 : TEXCOORD2,
+  // float4 v4 : TEXCOORD3,
+  // float4 v5 : TEXCOORD4,
+  // float4 v6 : TEXCOORD5,
+  // float4 v7 : TEXCOORD6,
+  // float4 v8 : TEXCOORD8,
+  // float3 v9 : TEXCOORD9,
+  // nointerpolation uint v10 : SV_InstanceID0,
+  // uint v11 : SV_IsFrontFace0,
+  // out float4 o0 : SV_Target0,
+  // out float4 o1 : SV_Target1,
+  // out float4 o2 : SV_Target2,
+  // out float4 o3 : SV_Target3)
+// {
+  // float4 r0,r1,r2,r3,r4,r5,r6;
+  // uint4 bitmask, uiDest;
+  // float4 fDest;
+
+  // // r0.x = cmp(0.5 < cb0[13].y);
+  // // r0.y = dot(v6.xyz, v6.xyz);
+  // // r0.y = sqrt(r0.y);
+  // // r0.y = cmp(r0.y < 2);
+  // // r0.x = r0.y ? r0.x : 0;
+  // // if (r0.x != 0) discard;
+  // r0.xyzw = t0.Sample(s4_s, v1.xy).xyzw;
+  // r0.x = r0.x * r0.w;
+  // r1.xy = r0.xy + r0.xy;
+  // // r0.xy = r0.xy * float2(2,2) + float2(-1,-1);
+  // // r0.x = dot(r0.xy, r0.xy);
+  // // r0.x = min(1, r0.x);
+  // // r0.x = 1 + -r0.x;
+  // // r1.z = sqrt(r0.x);
+  // r1.z = 1;
+  // r0.xyz = float3(-1,-1,-1) + r1.xyz;
+  // r0.xyz = cb0[4].www * r0.xyz + float3(0,0,1);
+  // r0.w = cmp(0.5 < cb0[13].x);
+  // r1.xyz = v11.xxx ? r0.xyz : -r0.xyz;
+  // r0.xyz = r0.www ? r1.xyz : r0.xyz;
+  // r1.xyzw = t1.Sample(s3_s, v1.xy).xyzw;
+  // r2.xyz = cb0[11].xyz * r1.xyz;
+  // r0.w = r1.xyz;
+  // // r0.w = dot(float3(1,1,1), r1.xyz);
+  // r2.w = cb0[10].x * r0.w + cb0[10].x;
+  // r3.y = dot(v3.xyz, r0.xyz);
+  // r4.xyzw = t2.Sample(s5_s, v1.zw).xyzw;
+  // // r0.w = log2(r0.w);
+  // r0.w = 0.25 * r0.w;
+  // r0.w = exp2(r0.w);
+  // r0.w = 1 + -r0.w;
+  // r0.w = saturate(cb0[9].x * r0.w);
+  // r3.w = -cb0[9].y + r3.y;
+  // r4.w = 1 / cb0[9].z;
+  // r3.w = saturate(r4.w * r3.w);
+  // r4.w = r3.w * -2 + 3;
+  // r3.w = r3.w * r3.w;
+  // r3.w = r4.w * r3.w;
+  // r0.w = max(cb0[8].w, r0.w);
+  // r0.w = r3.w * r0.w;
+  // r0.w = r0.w * r0.w;
+  // r1.xyz = -r1.xyz * cb0[11].xyz + r4.xyz;
+  // r1.xyz = r0.www * r1.xyz + r2.xyz;
+  // r0.w = r0.w * -r2.w + r2.w;
+  
+  // //ashland tree
+  // r2.xyzw = t3.Sample(s6_s, v1.xy).xyzw;
+  // // r2.xyz = r2.xyz * r2.www;
+  
+  // // thunderstorm/rains on trees
+  // r2.w = cmp(v3.w < 2000);
+  // if (r2.w != 0) {
+    // // r4.x = v2.w;
+    // // r4.z = v4.w;
+    // // r5.xyzw = t4.Sample(s2_s, r4.xz).xyzw;
+    // // r5.xy = float2(-0.5,-0.5) + r5.xy;
+    // // r5.xy = r5.xy * float2(0.00300000003,0.00300000003) + float2(0.5,0.5);
+    // // r5.zw = -cb0[4].xz + r4.xz;
+    // // r5.xy = r5.zw * float2(0.00999999978,0.00999999978) + r5.xy;
+    // r5.xy = 0;//float2(0.00999999978,0.00999999978);
+    // r6.xyzw = 0;//t5.Sample(s1_s, r5.xy).xyzw;
+    // r4.y = v3.w;
+    // r4.xyz = -cb0[4].xyz + r4.xyz;
+    // // r2.w = dot(r4.xyz, r4.xyz);
+    // // r2.w = sqrt(r2.w);
+    // r2.w = 1;//sqrt(r2.w);
+    // r4.xy = float2(0.5,0.5) + -r5.xy;
+    // // r3.w = dot(r4.xy, r4.xy);
+    // // r3.w = sqrt(r3.w);
+    // r3.w = 1;//sqrt(r3.w);
+    // r3.w = -0.400000006 + r3.w;
+    // r3.w = saturate(10.000001 * r3.w);
+    // r4.x = r3.w * -2 + 3;
+    // r3.w = r3.w * r3.w;
+    // r3.w = -r4.x * r3.w + 1;
+    // r2.w = -r6.x * 100 + r2.w;
+    // r2.w = cmp(r2.w < 0.100000001);
+    // r3.w = 1 + -r3.w;
+    // r2.w = r2.w ? 1 : r3.w;
+    // r4.xy = cmp(float2(0.5,0.5) < cb0[14].xy);
+    // r3.w = -85 + v7.y;
+    // r3.w = saturate(0.0666666701 * r3.w);
+    // r5.xz = float2(-4000,-4000) + v4.ww;
+    // r4.z = min(abs(v2.w), abs(r5.x));
+    // r4.w = max(abs(v2.w), abs(r5.x));
+    // r4.w = 1 / r4.w;
+    // // r4.z = r4.z * r4.w;
+    // // r4.w = r4.z * r4.z;
+    // // r5.w = r4.w * 0.0208350997 + -0.0851330012;
+    // // r5.w = r4.w * r5.w + 0.180141002;
+    // // r5.w = r4.w * r5.w + -0.330299497;
+    // // r4.w = r4.w * r5.w + 0.999866009;
+    // // r5.w = r4.z * r4.w;
+    // // r6.x = cmp(abs(r5.x) < abs(v2.w));
+    // // r5.w = r5.w * -2 + 1.57079637;
+    // // r5.w = r6.x ? r5.w : 0;
+    // // r4.z = r4.z * r4.w + r5.w;
+    // // r4.w = cmp(r5.x < -r5.x);
+    // // r4.w = r4.w ? -3.141593 : 0;
+    // // r4.z = r4.z + r4.w;
+    // // r4.w = min(v2.w, r5.x);
+    // // r5.x = max(v2.w, r5.x);
+    // // r4.w = cmp(r4.w < -r4.w);
+    // // r5.x = cmp(r5.x >= -r5.x);
+    // // r4.w = r4.w ? r5.x : 0;
+    // // r4.z = r4.w ? -r4.z : r4.z;
+    // r4.z = 20 * r4.z;
+    // // r4.z = sin(r4.z);
+    // r5.y = v2.w;
+    // // r4.w = dot(r5.yz, r5.yz);
+    // // r4.w = sqrt(r4.w);
+    // r4.z = r4.z * 100 + 11987.5;
+    // r4.z = r4.w + -r4.z;
+    // // r4.z = saturate(0.0399999991 * r4.z);
+    // r4.z = 1 + -r4.z;
+    // r3.w = r4.z * r3.w;
+    // r4.z = 0.200000003 + r0.y;
+    // // r4.z = saturate(2.5 * r4.z);
+    // r4.w = r4.z * -2 + 3;
+    // r4.z = r4.z * r4.z;
+    // r4.z = r4.w * r4.z;
+    // r3.w = r4.z * r3.w;
+    // r3.w = r3.w * r2.w;
+    // r5.xyz = float3(0.5,0.5,0.5) + -r1.xyz;
+    // r5.xyz = r3.www * r5.xyz + r1.xyz;
+    // r1.xyz = r4.xxx ? r5.xyz : r1.xyz;
+    // r2.w = cb0[14].w * r2.w;
+    // r3.w = 0.800000012 + -r0.w;
+    // r2.w = r2.w * r3.w + r0.w;
+    // o1.w = r4.y ? r2.w : r0.w;
+  // } else {
+    // o1.w = r0.w;
+  // }
+  
+  // r0.w = r1.w * cb0[11].w + -cb0[22].x;
+  // r0.w = cmp(r0.w < 0);
+  // if (r0.w != 0) discard;
+  // r3.x = dot(v2.xz, r0.xz);
+  // r3.z = dot(v4.xz, r0.xz);
+  // // r3.x = dot(v2.xyz, r0.xyz); //remove y?
+  // // r3.z = dot(v4.xyz, r0.xyz); //remove y?
+  // // r0.x = dot(r3.xyz, r3.xyz); //remove y?
+  // r0.x = 1;//rsqrt(r0.x);
+  // r0.xyz = r3.xyz * r0.xxx;
+  // // r1.w = cmp(cb1[0].x == 1.000000);
+  // // if (r1.w != 0) {
+    // // r1.w = cmp(cb1[0].y == 1.000000);
+    // // r3.xyz = cb1[2].xyz * v3.www;
+    // // r3.xyz = cb1[1].xyz * v2.www + r3.xyz;
+    // // r3.xyz = cb1[3].xyz * v4.www + r3.xyz;
+    // // r3.xyz = cb1[4].xyz + r3.xyz;
+    // // r4.y = v2.w;
+    // // r4.z = v3.w;
+    // // r4.w = v4.w;
+    // // r3.xyz = r1.www ? r3.xyz : r4.yzw;
+    // // r3.xyz = -cb1[6].xyz + r3.xyz;
+    // // r3.yzw = cb1[5].xyz * r3.xyz;
+    // // r1.w = 0.25 * r3.y;
+    // // r2.w = 0.5 * cb1[0].z;
+    // // r3.y = -cb1[0].z * 0.5 + 0.25;
+    // // r1.w = max(r2.w, r1.w);
+    // // r3.x = min(r1.w, r3.y);
+    // // r4.xyzw = t6.Sample(s0_s, r3.xzw).xyzw;
+    // // r5.xyz = float3(0.25,0,0) + r3.xzw;
+    // // r5.xyzw = t6.Sample(s0_s, r5.xyz).xyzw;
+    // // r3.xyz = float3(0.5,0,0) + r3.xzw;
+    // // r3.xyzw = t6.Sample(s0_s, r3.xyz).xyzw;
+    // // r0.w = 1;
+    // // r4.x = dot(r4.xyzw, r0.xyzw);
+    // // r4.y = dot(r5.xyzw, r0.xyzw);
+    // // r4.z = dot(r3.xyzw, r0.xyzw);
+  // // } else {
+    // r1.w = (int)v10.x + asint(cb2[0].x);
+    // r1.w = (int)r1.w * 7;
+    // r0.w = 1;
+    // r4.x = cb3[r1.w+0].w * r0.w;
+    // r4.y = cb3[r1.w+1].w * r0.w;
+    // r4.z = cb3[r1.w+2].w * r0.w;
+	// // r4.x = dot(cb3[r1.w+0].xyzw, r0.xyzw);
+    // // r4.y = dot(cb3[r1.w+1].xyzw, r0.xyzw);
+    // // r4.z = dot(cb3[r1.w+2].xyzw, r0.xyzw);
+  // // }
+  // r3.xyz = v9.xyz + r4.xyz;
+  // r3.xyz = max(float3(0,0,0), r3.xyz);
+  // r4.xyz = float3(-0.0399999991,-0.0399999991,-0.0399999991) + r1.xyz;
+  // o1.xyz = cb0[10].yyy * r4.xyz + float3(0.0399999991,0.0399999991,0.0399999991);
+  // r0.w = -cb0[10].y * 0.959999979 + 0.959999979;
+  // r1.xyz = r1.xyz * r0.www;
+  // r3.xyz = r1.xyz * r3.xyz;
+  // o2.xyz = r0.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
+  // o3.xyz = r2.xyz * cb0[12].xyz + r3.xyz;
+  // o0.xyz = r1.xyz;
+  // o0.w = 1;
+  // o2.w = 1;
+  // o3.w = 1;
+  // return;
+// }
+
+//
+// Generated by Microsoft (R) HLSL Shader Compiler 10.0.10011.16384
+//
+//
+// Buffer Definitions: 
+//
+// cbuffer cb3
+// {
+//
+//   float4 cb3[14];                    // Offset:    0 Size:   224
+//
+// }
+//
+// cbuffer cb2
+// {
+//
+//   float4 cb2;                        // Offset:    0 Size:    16
+//
+// }
+//
+// cbuffer cb0
+// {
+//
+//   float4 cb0[23];                    // Offset:    0 Size:   368
+//
+// }
+//
+//
+// Resource Bindings:
+//
+// Name                                 Type  Format         Dim      HLSL Bind  Count
+// ------------------------------ ---------- ------- ----------- -------------- ------
+// s3_s                              sampler      NA          NA             s3      1 
+// s4_s                              sampler      NA          NA             s4      1 
+// s5_s                              sampler      NA          NA             s5      1 
+// s6_s                              sampler      NA          NA             s6      1 
+// t0                                texture  float4          2d             t0      1 
+// t1                                texture  float4          2d             t1      1 
+// t2                                texture  float4          2d             t2      1 
+// t3                                texture  float4          2d             t3      1 
+// cb0                               cbuffer      NA          NA            cb0      1 
+// cb2                               cbuffer      NA          NA            cb2      1 
+// cb3                               cbuffer      NA          NA            cb3      1 
+//
+//
+//
+// Input signature:
+//
+// Name                 Index   Mask Register SysValue  Format   Used
+// -------------------- ----- ------ -------- -------- ------- ------
+// SV_POSITION              0   xyzw        0      POS   float       
+// TEXCOORD                 0   xyzw        1     NONE   float   xyzw
+// TEXCOORD                 1   xyzw        2     NONE   float   x zw
+// TEXCOORD                 2   xyzw        3     NONE   float   xyzw
+// TEXCOORD                 3   xyzw        4     NONE   float   x zw
+// TEXCOORD                 4   xyzw        5     NONE   float       
+// TEXCOORD                 5   xyzw        6     NONE   float       
+// TEXCOORD                 6   xyzw        7     NONE   float    y  
+// TEXCOORD                 8   xyzw        8     NONE   float       
+// TEXCOORD                 9   xyz         9     NONE   float   xyz 
+// SV_InstanceID            0   x          10     NONE    uint   x   
+// SV_IsFrontFace           0   x          11    FFACE    uint   x   
+//
+//
+// Output signature:
+//
+// Name                 Index   Mask Register SysValue  Format   Used
+// -------------------- ----- ------ -------- -------- ------- ------
+// SV_Target                0   xyzw        0   TARGET   float   xyzw
+// SV_Target                1   xyzw        1   TARGET   float   xyzw
+// SV_Target                2   xyzw        2   TARGET   float   xyzw
+// SV_Target                3   xyzw        3   TARGET   float   xyzw
+//
+ps_5_0
+dcl_globalFlags refactoringAllowed
+dcl_constantbuffer CB3[14], dynamicIndexed
+dcl_constantbuffer CB2[1], immediateIndexed
+dcl_constantbuffer CB0[23], immediateIndexed
+dcl_sampler s3, mode_default
+dcl_sampler s4, mode_default
+dcl_sampler s5, mode_default
+dcl_sampler s6, mode_default
+dcl_resource_texture2d (float,float,float,float) t0
+dcl_resource_texture2d (float,float,float,float) t1
+dcl_resource_texture2d (float,float,float,float) t2
+dcl_resource_texture2d (float,float,float,float) t3
+dcl_input_ps linear v1.xyzw
+dcl_input_ps linear v2.xzw
+dcl_input_ps linear v3.xyzw
+dcl_input_ps linear v4.xzw
+dcl_input_ps linear v7.y
+dcl_input_ps linear v9.xyz
+dcl_input_ps constant v10.x
+dcl_input_ps_sgv constant v11.x, is_front_face
+dcl_output o0.xyzw
+dcl_output o1.xyzw
+dcl_output o2.xyzw
+dcl_output o3.xyzw
+dcl_temps 5
+sample_indexable(texture2d)(float,float,float,float) r0.xyz, v1.xyxx, t0.xywz, s4
+mul r0.x, r0.z, r0.x
+mad r0.xy, r0.xyxx, l(2.000000, 2.000000, 0.000000, 0.000000), l(-1.000000, -1.000000, 0.000000, 0.000000)
+mov r0.z, l(0)
+mad r0.xyz, cb0[4].wwww, r0.xyzx, l(0.000000, 0.000000, 1.000000, 0.000000)
+lt r0.w, l(0.500000), cb0[13].x
+movc r1.xyz, v11.xxxx, r0.xyzx, -r0.xyzx
+movc r0.xyz, r0.wwww, r1.xyzx, r0.xyzx
+sample_indexable(texture2d)(float,float,float,float) r1.xyzw, v1.xyxx, t1.xyzw, s3
+mul r2.xyz, r1.xyzx, cb0[11].xyzx
+mad r0.w, cb0[10].x, r1.x, cb0[10].x
+dp3 r3.y, v3.xyzx, r0.xyzx
+sample_indexable(texture2d)(float,float,float,float) r4.xyz, v1.zwzz, t2.xyzw, s5
+mul r2.w, r1.x, l(0.250000)
+exp r2.w, r2.w
+add r2.w, -r2.w, l(1.000000)
+mul_sat r2.w, r2.w, cb0[9].x
+add r3.w, r3.y, -cb0[9].y
+div r4.w, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[9].z
+mul_sat r3.w, r3.w, r4.w
+mad r4.w, r3.w, l(-2.000000), l(3.000000)
+mul r3.w, r3.w, r3.w
+mul r3.w, r3.w, r4.w
+max r2.w, r2.w, cb0[8].w
+mul r2.w, r2.w, r3.w
+mul r2.w, r2.w, r2.w
+mad r1.xyz, -r1.xyzx, cb0[11].xyzx, r4.xyzx
+mad r1.xyz, r2.wwww, r1.xyzx, r2.xyzx
+mad r0.w, r2.w, -r0.w, r0.w
+lt r2.x, v3.w, l(2000.000000)
+if_nz r2.x
+  lt r2.xy, l(0.500000, 0.500000, 0.000000, 0.000000), cb0[14].xyxx
+  add r2.z, v7.y, l(-85.000000)
+  mul_sat r2.z, r2.z, l(0.066667)
+  add r2.w, v4.w, l(-4000.000000)
+  min r3.w, |r2.w|, |v2.w|
+  max r2.w, |r2.w|, |v2.w|
+  div r2.w, l(1.000000, 1.000000, 1.000000, 1.000000), r2.w
+  mad r3.w, r3.w, l(2000.000000), l(11987.500000)
+  add r2.w, r2.w, -r3.w
+  add r2.w, -r2.w, l(1.000000)
+  mul r2.z, r2.z, r2.w
+  add r0.y, r0.y, l(0.200000)
+  mad r2.w, r0.y, l(-2.000000), l(3.000000)
+  mul r0.y, r0.y, r0.y
+  mul r0.y, r0.y, r2.w
+  mul r0.y, r2.z, r0.y
+  add r4.xyz, -r1.xyzx, l(0.500000, 0.500000, 0.500000, 0.000000)
+  mad r4.xyz, r0.yyyy, r4.xyzx, r1.xyzx
+  movc r1.xyz, r2.xxxx, r4.xyzx, r1.xyzx
+  add r0.y, -r0.w, l(0.800000)
+  mad r0.y, cb0[14].w, r0.y, r0.w
+  movc o1.w, r2.y, r0.y, r0.w
+else 
+  mov o1.w, r0.w
+endif 
+mad r0.y, cb0[11].w, r1.w, -cb0[22].x
+lt r0.y, r0.y, l(0.000000)
+discard_nz r0.y
+sample_indexable(texture2d)(float,float,float,float) r2.xyz, v1.xyxx, t3.xyzw, s6
+dp2 r3.x, v2.xzxx, r0.xzxx
+dp2 r3.z, v4.xzxx, r0.xzxx
+iadd r0.x, v10.x, cb2[0].x
+imul null, r0.x, r0.x, l(7)
+itof r0.x, r0.x
+ftou r0.y, r0.x
+add r0.xz, r0.xxxx, l(1.000000, 0.000000, 2.000000, 0.000000)
+ftou r0.xz, r0.xxzx
+add r4.x, v9.x, cb3[r0.y + 0].w
+add r4.y, v9.y, cb3[r0.x + 0].w
+add r4.z, v9.z, cb3[r0.z + 0].w
+max r0.xyz, r4.xyzx, l(0.000000, 0.000000, 0.000000, 0.000000)
+add r4.xyz, r1.xyzx, l(-0.040000, -0.040000, -0.040000, 0.000000)
+mad o1.xyz, cb0[10].yyyy, r4.xyzx, l(0.040000, 0.040000, 0.040000, 0.000000)
+mad r0.w, cb0[10].y, l(-0.960000), l(0.960000)
+mul r1.xyz, r0.wwww, r1.xyzx
+mul r0.xyz, r0.xyzx, r1.xyzx
+mad o2.xyz, r3.xyzx, l(0.500000, 0.500000, 0.500000, 0.000000), l(0.500000, 0.500000, 0.500000, 0.000000)
+mad o3.xyz, r2.xyzx, cb0[12].xyzx, r0.xyzx
+mov o0.xyz, r1.xyzx
+mov o0.w, l(1.000000)
+mov o2.w, l(1.000000)
+mov o3.w, l(1.000000)
+ret 
+// Approximately 84 instruction slots used
