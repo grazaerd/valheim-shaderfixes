@@ -104,8 +104,10 @@
   // r3.xyzw = t2.Sample(s3_s, r3.xy).xyzw;
   // r4.xyz = r3.xyz * r0.xyz;
   
-  // // r5.xyzw = t3.Sample(s4_s, v1.xy).xyzw;
-  // // r5.xyz = r5.xyz * r5.www;
+  // // thistle
+  // r5.xyzw = t3.Sample(s4_s, v1.xy).xyzw;
+  // r5.xyz = r5.xyz * r5.www;
+  
   // r0.w = r0.w * cb0[12].w + -cb0[16].x;
   // r0.w = cmp(r0.w < 0);
   // if (r0.w != 0) discard;
@@ -160,7 +162,7 @@
   // r2.xyz = r0.xyz * r2.xyz;
   // o2.xyz = r1.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   // o3.xyz = cb0[13].xyz + r2.xyz;
-  // // o3.xyz = r5.xyz * cb0[13].xyz + r2.xyz;
+  // o3.xyz = r5.xyz * cb0[13].xyz + r2.xyz;
   // o0.xyz = r0.xyz;
   // o0.w = 1;
   // o1.w = cb0[11].x;
@@ -203,8 +205,10 @@
 // ------------------------------ ---------- ------- ----------- -------------- ------
 // s1_s                              sampler      NA          NA             s1      1 
 // s3_s                              sampler      NA          NA             s3      1 
+// s4_s                              sampler      NA          NA             s4      1 
 // t1                                texture  float4          2d             t1      1 
 // t2                                texture  float4          2d             t2      1 
+// t3                                texture  float4          2d             t3      1 
 // cb0                               cbuffer      NA          NA            cb0      1 
 // cb2                               cbuffer      NA          NA            cb2      1 
 // cb3                               cbuffer      NA          NA            cb3      1 
@@ -243,8 +247,10 @@ dcl_constantbuffer CB2[1], immediateIndexed
 dcl_constantbuffer CB0[17], immediateIndexed
 dcl_sampler s1, mode_default
 dcl_sampler s3, mode_default
+dcl_sampler s4, mode_default
 dcl_resource_texture2d (float,float,float,float) t1
 dcl_resource_texture2d (float,float,float,float) t2
+dcl_resource_texture2d (float,float,float,float) t3
 dcl_input_ps linear v1.xy
 dcl_input_ps linear v2.xyzw
 dcl_input_ps linear v3.xyz
@@ -255,7 +261,7 @@ dcl_output o0.xyzw
 dcl_output o1.xyzw
 dcl_output o2.xyzw
 dcl_output o3.xyzw
-dcl_temps 6
+dcl_temps 7
 sample_indexable(texture2d)(float,float,float,float) r0.xyzw, v1.xyxx, t1.xyzw, s1
 mad r0.w, r0.w, cb0[12].w, -cb0[16].x
 lt r0.w, r0.w, l(0.000000)
@@ -266,34 +272,37 @@ mov r1.y, v4.w
 mul r1.xy, r1.xyxx, cb0[4].xxxx
 sample_indexable(texture2d)(float,float,float,float) r1.xyz, r1.xyxx, t2.xyzw, s3
 mul r2.xyz, r0.xyzx, r1.xyzx
-mov r3.x, cb0[4].z
-mov r3.z, l(1.000000)
-dp3 r4.x, v2.xyzx, r3.xxzx
-dp3 r4.y, v3.xyzx, r3.xxzx
-dp3 r4.z, v4.xyzx, r3.xxzx
-dp3 r0.w, r4.xyzx, r4.xyzx
+sample_indexable(texture2d)(float,float,float,float) r3.xyzw, v1.xyxx, t3.xyzw, s4
+mul r3.xyz, r3.wwww, r3.xyzx
+mov r4.x, cb0[4].z
+mov r4.z, l(1.000000)
+dp3 r5.x, v2.xyzx, r4.xxzx
+dp3 r5.y, v3.xyzx, r4.xxzx
+dp3 r5.z, v4.xyzx, r4.xxzx
+dp3 r0.w, r5.xyzx, r5.xyzx
 sqrt r0.w, r0.w
-mul r3.xyz, r0.wwww, r4.xyzx
+mul r4.xyz, r0.wwww, r5.xyzx
 iadd r0.w, v8.x, cb2[0].x
 imul null, r0.w, r0.w, l(7)
 itof r0.w, r0.w
 ftou r1.w, r0.w
-add r4.xy, r0.wwww, l(1.000000, 2.000000, 0.000000, 0.000000)
-ftou r4.xy, r4.xyxx
-add r5.x, v7.x, cb3[r1.w + 0].w
-add r5.y, v7.y, cb3[r4.x + 0].w
-add r5.z, v7.z, cb3[r4.y + 0].w
-max r4.xyz, r5.xyzx, l(0.000000, 0.000000, 0.000000, 0.000000)
+add r5.xy, r0.wwww, l(1.000000, 2.000000, 0.000000, 0.000000)
+ftou r5.xy, r5.xyxx
+add r6.x, v7.x, cb3[r1.w + 0].w
+add r6.y, v7.y, cb3[r5.x + 0].w
+add r6.z, v7.z, cb3[r5.y + 0].w
+max r5.xyz, r6.xyzx, l(0.000000, 0.000000, 0.000000, 0.000000)
 mad r0.xyz, r1.xyzx, r0.xyzx, l(-0.040000, -0.040000, -0.040000, 0.000000)
 mad o1.xyz, cb0[11].yyyy, r0.xyzx, l(0.040000, 0.040000, 0.040000, 0.000000)
 mad r0.x, cb0[11].y, l(-0.960000), l(0.960000)
 mul r0.xyz, r0.xxxx, r2.xyzx
-mad o2.xyz, r3.xyzx, l(0.500000, 0.500000, 0.500000, 0.000000), l(0.500000, 0.500000, 0.500000, 0.000000)
-mad o3.xyz, r0.xyzx, r4.xyzx, cb0[13].xyzx
+mul r1.xyz, r5.xyzx, r0.xyzx
+mad o2.xyz, r4.xyzx, l(0.500000, 0.500000, 0.500000, 0.000000), l(0.500000, 0.500000, 0.500000, 0.000000)
+mad o3.xyz, r3.xyzx, cb0[13].xyzx, r1.xyzx
 mov o0.xyz, r0.xyzx
 mov o0.w, l(1.000000)
 mov o1.w, cb0[11].x
 mov o2.w, l(1.000000)
 mov o3.w, l(1.000000)
 ret 
-// Approximately 40 instruction slots used
+// Approximately 43 instruction slots used
