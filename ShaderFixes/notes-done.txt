@@ -1,5 +1,5 @@
 
-## Done
+## Done on fragment shader
 ==============================
 fs particle system
 mistland smoke
@@ -22,6 +22,12 @@ microseconds changes: 600-700 -> 150-190
 fs tree vegetation
 4b92105c02bbd9d5-ps
 microseconds changes: 760 -> 500
+
+## Done on domain shader
+==============================
+ds terrain
+9551f546e0a01507-ds
+
 
 
 ## Todo
