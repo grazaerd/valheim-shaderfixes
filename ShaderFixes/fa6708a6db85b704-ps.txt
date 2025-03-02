@@ -280,7 +280,7 @@ dp3 r5.x, v2.xyzx, r4.xxzx
 dp3 r5.y, v3.xyzx, r4.xxzx
 dp3 r5.z, v4.xyzx, r4.xxzx
 dp3 r0.w, r5.xyzx, r5.xyzx
-sqrt r0.w, r0.w
+rsq r0.w, r0.w
 mul r4.xyz, r0.wwww, r5.xyzx
 iadd r0.w, v8.x, cb2[0].x
 imul null, r0.w, r0.w, l(7)

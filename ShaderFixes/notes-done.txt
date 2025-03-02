@@ -11,7 +11,7 @@ snowstorm etc
 ecbfe773269e88cb-ps
 microseconds changes: 6000-7000 -> 3000-4000
 ==============================
-fs grass //bug on thistle
+fs grass
 fa6708a6db85b704-ps
 microseconds changes: 800 -> 600
 ==============================
