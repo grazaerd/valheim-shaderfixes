@@ -105,38 +105,38 @@
   // r2.x = saturate(r2.x / r2.y);
   // r1.w = min(r2.x, r1.w);
   // r1.w = r1.w * r1.w;
-  // // r2.x = cmp(0 < cb0[11].w);
-  // // r2.y = -cb1[4].y + v3.w;
-  // // r2.y = saturate(abs(r2.y) / cb0[11].w);
-  // // r2.y = min(r2.y, r1.w);
-  // // r1.w = r2.x ? r2.y : r1.w;
-  // // r2.x = cmp(0.5 < cb0[12].z);
-  // // if (r2.x != 0) {
-    // // r2.x = v2.w;
-    // // r2.z = v4.w;
-    // // r3.xyzw = t3.Sample(s2_s, r2.xz).xyzw;
-    // // r3.xy = float2(-0.5,-0.5) + r3.xy;
-    // // r3.xy = r3.xy * float2(0.00300000003,0.00300000003) + float2(0.5,0.5);
-    // // r3.zw = -cb0[8].xz + r2.xz;
-    // // r3.xy = r3.zw * float2(0.00999999978,0.00999999978) + r3.xy;
-    // // r4.xyzw = t4.Sample(s1_s, r3.xy).xyzw;
-    // // r2.y = v3.w;
-    // // r2.xyz = -cb0[8].xyz + r2.xyz;
-    // // r2.x = dot(r2.xyz, r2.xyz);
-    // // r2.yz = float2(0.5,0.5) + -r3.xy;
-    // // r2.y = dot(r2.yz, r2.yz);
-    // // r2.xy = sqrt(r2.xy);
-    // // r2.y = -0.400000006 + r2.y;
-    // // r2.y = saturate(10.000001 * r2.y);
-    // // r2.z = r2.y * -2 + 3;
-    // // r2.y = r2.y * r2.y;
-    // // r2.y = -r2.z * r2.y + 1;
-    // // r2.x = -r4.x * 100 + r2.x;
-    // // r2.x = cmp(r2.x < 0.100000001);
-    // // r2.y = 1 + -r2.y;
-    // // r2.x = r2.x ? 1 : r2.y;
-    // // r1.w = min(r2.x, r1.w);
-  // // }
+  // r2.x = cmp(0 < cb0[11].w);
+  // r2.y = -cb1[4].y + v3.w;
+  // r2.y = saturate(abs(r2.y) / cb0[11].w);
+  // r2.y = min(r2.y, r1.w);
+  // r1.w = r2.x ? r2.y : r1.w;
+  // r2.x = cmp(0.5 < cb0[12].z);
+  // if (r2.x != 0) {
+    // r2.x = v2.w;
+    // r2.z = v4.w;
+    // r3.xyzw = t3.Sample(s2_s, r2.xz).xyzw;
+    // r3.xy = float2(-0.5,-0.5) + r3.xy;
+    // r3.xy = r3.xy * float2(0.00300000003,0.00300000003) + float2(0.5,0.5);
+    // r3.zw = -cb0[8].xz + r2.xz;
+    // r3.xy = r3.zw * float2(0.00999999978,0.00999999978) + r3.xy;
+    // r4.xyzw = t4.Sample(s1_s, r3.xy).xyzw;
+    // r2.y = v3.w;
+    // r2.xyz = -cb0[8].xyz + r2.xyz;
+    // r2.x = dot(r2.xyz, r2.xyz);
+    // r2.yz = float2(0.5,0.5) + -r3.xy;
+    // r2.y = dot(r2.yz, r2.yz);
+    // r2.xy = sqrt(r2.xy);
+    // r2.y = -0.400000006 + r2.y;
+    // r2.y = saturate(10.000001 * r2.y);
+    // r2.z = r2.y * -2 + 3;
+    // r2.y = r2.y * r2.y;
+    // r2.y = -r2.z * r2.y + 1;
+    // r2.x = -r4.x * 100 + r2.x;
+    // r2.x = cmp(r2.x < 0.100000001);
+    // r2.y = 1 + -r2.y;
+    // r2.x = r2.x ? 1 : r2.y;
+    // r1.w = min(r2.x, r1.w);
+  // }
   // r2.x = -30 + v3.w;
   // r2.x = saturate(r2.x / cb0[11].x);
   // r1.w = min(r2.x, r1.w);
@@ -236,12 +236,16 @@
 //
 // Name                                 Type  Format         Dim      HLSL Bind  Count
 // ------------------------------ ---------- ------- ----------- -------------- ------
+// s1_s                              sampler      NA          NA             s1      1 
+// s2_s                              sampler      NA          NA             s2      1 
 // s3_s                              sampler      NA          NA             s3      1 
 // s4_s                              sampler      NA          NA             s4      1 
 // s5_s                              sampler      NA          NA             s5      1 
 // t0                                texture  float4          2d             t0      1 
 // t1                                texture  float4          2d             t1      1 
 // t2                                texture  float4          2d             t2      1 
+// t3                                texture  float4          2d             t3      1 
+// t4                                texture  float4          2d             t4      1 
 // cb0                               cbuffer      NA          NA            cb0      1 
 // cb1                               cbuffer      NA          NA            cb1      1 
 // cb3                               cbuffer      NA          NA            cb3      1 
@@ -254,9 +258,9 @@
 // -------------------- ----- ------ -------- -------- ------- ------
 // SV_POSITION              0   xyzw        0      POS   float       
 // TEXCOORD                 0   xyzw        1     NONE   float   xy  
-// TEXCOORD                 1   xyzw        2     NONE   float       
+// TEXCOORD                 1   xyzw        2     NONE   float      w
 // TEXCOORD                 2   xyzw        3     NONE   float      w
-// TEXCOORD                 3   xyzw        4     NONE   float       
+// TEXCOORD                 3   xyzw        4     NONE   float      w
 // TEXCOORD                 4   xyzw        5     NONE   float      w
 // COLOR                    0   xyzw        6     NONE   float   xyzw
 // TEXCOORD                 5   xyzw        7     NONE   float   xy w
@@ -275,15 +279,21 @@ ps_5_0
 dcl_globalFlags refactoringAllowed
 dcl_constantbuffer CB3[1], immediateIndexed
 dcl_constantbuffer CB1[8], immediateIndexed
-dcl_constantbuffer CB0[12], immediateIndexed
+dcl_constantbuffer CB0[13], immediateIndexed
+dcl_sampler s1, mode_default
+dcl_sampler s2, mode_default
 dcl_sampler s3, mode_default
 dcl_sampler s4, mode_default
 dcl_sampler s5, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_resource_texture2d (float,float,float,float) t1
 dcl_resource_texture2d (float,float,float,float) t2
+dcl_resource_texture2d (float,float,float,float) t3
+dcl_resource_texture2d (float,float,float,float) t4
 dcl_input_ps linear v1.xy
+dcl_input_ps linear v2.w
 dcl_input_ps linear v3.w
+dcl_input_ps linear v4.w
 dcl_input_ps linear v5.w
 dcl_input_ps linear v6.xyzw
 dcl_input_ps linear v7.xyw
@@ -291,58 +301,91 @@ dcl_input_ps linear v8.xyz
 dcl_input_ps linear v9.xyz
 dcl_output o0.xyzw
 dcl_temps 4
-div r0.xy, v7.xyxx, v7.wwww
-sample_indexable(texture2d)(float,float,float,float) r0.x, r0.xyxx, t2.xyzw, s5
-mad r0.x, cb1[7].z, r0.x, cb1[7].w
-div r0.x, l(1.000000, 1.000000, 1.000000, 1.000000), r0.x
-add r0.x, r0.x, -v7.w
-div_sat r0.x, r0.x, cb0[11].x
-add r0.y, v7.w, -cb0[11].y
-add r0.z, -cb0[11].y, cb0[11].z
-div_sat r0.y, r0.y, r0.z
-min r0.x, r0.x, r0.y
-mul r0.x, r0.x, r0.x
-add r0.y, v3.w, l(-30.000000)
-div_sat r0.y, r0.y, cb0[11].x
-min r0.x, r0.x, r0.y
-sample_indexable(texture2d)(float,float,float,float) r1.xyzw, v1.xyxx, t0.xyzw, s3
-mul r1.xyzw, r1.xyzw, cb0[9].xyzw
-mul r1.xyzw, r1.xyzw, v6.xyzw
-mul r0.w, r0.x, r1.w
-sample_indexable(texture2d)(float,float,float,float) r2.xy, v1.xyxx, t1.xwyz, s4
-dp2 r1.w, r2.xxxx, r2.yyyy
-add r1.w, r1.w, l(-1.000000)
-mul r1.w, r1.w, cb0[8].w
-max r1.w, r1.w, l(0.000000)
-add r1.w, r1.w, l(-1.000000)
-mad r1.w, cb0[4].x, r1.w, l(1.000000)
-mul r2.xyz, r1.xyzx, cb0[2].xyzx
-mul r3.xyz, r1.xyzx, v9.xyzx
-mul r1.xyz, r2.xyzx, l(1.500000, 1.500000, 1.500000, 0.000000)
-mul r0.xyz, r1.wwww, r1.xyzx
+sample_indexable(texture2d)(float,float,float,float) r0.xyzw, v1.xyxx, t0.xyzw, s3
+mul r0.xyzw, r0.xyzw, cb0[9].xyzw
+mul r0.xyzw, r0.xyzw, v6.xyzw
+sample_indexable(texture2d)(float,float,float,float) r1.xy, v1.xyxx, t1.xwyz, s4
+dp2 r1.x, r1.xxxx, r1.yyyy
+add r1.x, r1.x, l(-1.000000)
+mul r1.x, r1.x, cb0[8].w
+div r1.yz, v7.xxyx, v7.wwww
+sample_indexable(texture2d)(float,float,float,float) r1.y, r1.yzyy, t2.yxzw, s5
+mad r1.y, cb1[7].z, r1.y, cb1[7].w
+div r1.y, l(1.000000, 1.000000, 1.000000, 1.000000), r1.y
+add r1.y, r1.y, -v7.w
+div_sat r1.y, r1.y, cb0[11].x
+add r1.z, v7.w, -cb0[11].y
+add r1.w, -cb0[11].y, cb0[11].z
+div_sat r1.z, r1.z, r1.w
+min r1.y, r1.y, r1.z
+mul r1.y, r1.y, r1.y
+lt r1.z, l(0.000000), cb0[11].w
+add r1.w, v3.w, -cb1[4].y
+div_sat r1.w, |r1.w|, cb0[11].w
+min r1.w, r1.y, r1.w
+movc r1.y, r1.z, r1.w, r1.y
+lt r1.z, l(0.500000), cb0[12].z
+if_nz r1.z
+  mov r2.x, v2.w
+  mov r2.z, v4.w
+  sample_indexable(texture2d)(float,float,float,float) r1.zw, r2.xzxx, t3.zwxy, s2
+  add r1.zw, r1.zzzw, l(0.000000, 0.000000, -0.500000, -0.500000)
+  mad r1.zw, r1.zzzw, l(0.000000, 0.000000, 0.003000, 0.003000), l(0.000000, 0.000000, 0.500000, 0.500000)
+  add r3.xy, r2.xzxx, -cb0[8].xzxx
+  mad r1.zw, r3.xxxy, l(0.000000, 0.000000, 0.010000, 0.010000), r1.zzzw
+  sample_indexable(texture2d)(float,float,float,float) r2.w, r1.zwzz, t4.yzwx, s1
+  mov r2.y, v3.w
+  add r2.xyz, r2.xyzx, -cb0[8].xyzx
+  dp3 r2.x, r2.xyzx, r2.xyzx
+  add r1.zw, -r1.zzzw, l(0.000000, 0.000000, 0.500000, 0.500000)
+  dp2 r1.z, r1.zwzz, r1.zwzz
+  sqrt r1.w, r2.x
+  sqrt r1.z, r1.z
+  add r1.z, r1.z, l(-0.400000)
+  mul_sat r1.z, r1.z, l(10.000001)
+  mad r2.x, r1.z, l(-2.000000), l(3.000000)
+  mul r1.z, r1.z, r1.z
+  mad r1.z, -r2.x, r1.z, l(1.000000)
+  mad r1.w, r2.w, l(-100.000000), r1.w
+  lt r1.w, r1.w, l(0.100000)
+  add r1.z, -r1.z, l(1.000000)
+  movc r1.z, r1.w, l(1.000000), r1.z
+  min r1.y, r1.y, r1.z
+endif 
+add r1.z, v3.w, l(-30.000000)
+div_sat r1.z, r1.z, cb0[11].x
+min r1.y, r1.y, r1.z
+mul r2.w, r0.w, r1.y
+mul r3.xyz, r0.xyzx, v9.xyzx
+max r0.w, r1.x, l(0.000000)
+mul r0.xyz, r0.xyzx, cb0[2].xyzx
+mul r0.xyz, r0.xyzx, l(1.500000, 1.500000, 1.500000, 0.000000)
+add r0.w, r0.w, l(-1.000000)
+mad r0.w, cb0[4].x, r0.w, l(1.000000)
+mul r2.xyz, r0.wwww, r0.xyzx
 mov r3.w, l(0)
-add r0.xyzw, r0.xyzw, r3.xyzw
+add r0.xyzw, r2.xyzw, r3.xyzw
 add r0.xyz, r0.xyzx, cb0[10].xyzx
-mov o0.w, r0.w
-dp3 r0.w, -v8.xyzx, -v8.xyzx
-rsq r0.w, r0.w
-mul r1.xyz, r0.wwww, -v8.xyzx
-dp3_sat r0.w, r1.xyzx, cb0[6].xyzx
-log r1.xyz, cb0[5].xyzx
-mul r1.xyz, r1.xyzx, l(2.200000, 2.200000, 2.200000, 0.000000)
-exp r1.xyz, r1.xyzx
-add r1.xyz, r1.xyzx, -cb3[0].xyzx
-mad r1.xyz, r0.wwww, r1.xyzx, cb3[0].xyzx
-add r1.xyz, -r0.xyzx, r1.xyzx
-mul r0.w, -v5.w, cb0[6].w
-exp r0.w, r0.w
-min r0.w, r0.w, l(1.000000)
-add r0.w, -r0.w, l(1.000000)
-add r1.w, -v5.w, cb0[7].y
-add r2.x, -cb0[7].x, cb0[7].y
-div_sat r1.w, r1.w, r2.x
+dp3 r1.x, -v8.xyzx, -v8.xyzx
+rsq r1.x, r1.x
+mul r1.xyz, r1.xxxx, -v8.xyzx
+dp3_sat r1.x, r1.xyzx, cb0[6].xyzx
+log r1.yzw, cb0[5].xxyz
+mul r1.yzw, r1.yyzw, l(0.000000, 2.200000, 2.200000, 2.200000)
+exp r1.yzw, r1.yyzw
+add r1.yzw, r1.yyzw, -cb3[0].xxyz
+mad r1.xyz, r1.xxxx, r1.yzwy, cb3[0].xyzx
+mul r1.w, -v5.w, cb0[6].w
+exp r1.w, r1.w
+min r1.w, r1.w, l(1.000000)
 add r1.w, -r1.w, l(1.000000)
-max r0.w, r0.w, r1.w
-mad o0.xyz, r0.wwww, r1.xyzx, r0.xyzx
+add r2.x, -v5.w, cb0[7].y
+add r2.y, -cb0[7].x, cb0[7].y
+div_sat r2.x, r2.x, r2.y
+add r2.x, -r2.x, l(1.000000)
+max r1.w, r1.w, r2.x
+add r1.xyz, -r0.xyzx, r1.xyzx
+mad o0.xyz, r1.wwww, r1.xyzx, r0.xyzx
+mov o0.w, r0.w
 ret 
-// Approximately 54 instruction slots used
+// Approximately 87 instruction slots used
